@@ -10,7 +10,7 @@ export default class ReactPdfJs extends Component {
     file: PropTypes.string.isRequired,
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
-    canvscaleasWidth: PropTypes.number,
+    canvscaleasWidth: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -50,7 +50,8 @@ export default class ReactPdfJs extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.page !== this.props.page) {
+    if (newProps.page !== this.props.page ||
+      newProps.canvscaleasWidth !== this.props.canvscaleasWidth) {
       this.state.pdf.getPage(newProps.page).then((page) => {
         const viewportPrev = page.getViewport(1);
         const pageWidth = viewportPrev.width;

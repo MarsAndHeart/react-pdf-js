@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Pdf from 'react-pdf-js';
 
 export default class App extends Component {
-  state = { page: 1 };
+  state = { page: 1, addWidth: 0 };
 
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
@@ -14,6 +14,23 @@ export default class App extends Component {
 
   handleNext = () => {
     this.setState({ page: this.state.page + 1 });
+  }
+
+  doReduce = () => {
+    if (this.state.addWidth >= 200) {
+      this.setState({
+        addWidth: this.state.addWidth - 200,
+      });
+    }
+  }
+
+  doEnlarge = () => {
+    console.log(this.state.addWidth);
+    if (this.state.addWidth < 1000) {
+      this.setState({
+        addWidth: this.state.addWidth + 200,
+      });
+    }
   }
 
   renderPagination = (page, pages) => {
@@ -59,15 +76,19 @@ export default class App extends Component {
     );
   }
 
-  render () {
+  render() {
     let pagination = null;
     if (this.state.pages) {
       pagination = this.renderPagination(this.state.page, this.state.pages);
     }
     return (
       <div>
-        <Pdf canvscaleasWidth={375} file="test.pdf" onDocumentComplete={this.onDocumentComplete} page={this.state.page} />
+        <Pdf canvscaleasWidth={375 + this.state.addWidth} file="test.pdf" onDocumentComplete={this.onDocumentComplete} page={this.state.page} />
         {pagination}
+        <div>
+          <button onClick={this.doReduce}>-</button>
+          <button onClick={this.doEnlarge}>+</button>
+        </div>
       </div>
     );
   }
