@@ -10,6 +10,7 @@ export default class ReactPdfJs extends Component {
     file: PropTypes.string.isRequired,
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
+    canvasWidth: PropTypes.number,
   }
 
   static defaultProps = {
@@ -35,7 +36,7 @@ export default class ReactPdfJs extends Component {
         const { canvas } = this;
         const canvasContext = canvas.getContext('2d');
         canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        canvas.width = this.props.canvasWidth;
 
         const renderContext = {
           canvasContext,
@@ -55,7 +56,7 @@ export default class ReactPdfJs extends Component {
         const { canvas } = this;
         const canvasContext = canvas.getContext('2d');
         canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        canvas.width = this.props.canvasWidth;
 
         const renderContext = {
           canvasContext,
