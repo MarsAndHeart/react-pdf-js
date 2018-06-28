@@ -66,7 +66,7 @@ export default class App extends Component {
     }
     return (
       <div>
-        <Pdf file="test.pdf" onDocumentComplete={this.onDocumentComplete} page={this.state.page} />
+        <Pdf canvscaleasWidth={375} file="test.pdf" onDocumentComplete={this.onDocumentComplete} page={this.state.page} />
         {pagination}
       </div>
     );
